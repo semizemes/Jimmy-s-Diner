@@ -14,4 +14,5 @@ function getHtml (){
         `)
 }
 
-menu.innerHTML = getHtml()
+menu.innerHTML = getHtml().join(" ")
+

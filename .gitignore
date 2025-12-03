@@ -1,0 +1,68 @@
+# Node
+node_modules/
+dist/
+build/
+.next/
+out/
+*.tgz
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+.env.test
+.env.production
+secrets.json
+*.key
+*.pem
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage / cache
+coverage/
+.cache/
+.vite/
+.eslintcache
+
+# Python (if present)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+venv/
+.env/venv
+.venv/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker / containers
+docker-compose.override.yml
+*.stackdump
+
+# Build artifacts
+*.class
+*.jar
+*.war
+*.egg-info/
+
+# Misc
+*.swp
+*.tmp
+coverage.xml
+
+package-lock.json
