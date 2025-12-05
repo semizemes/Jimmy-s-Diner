@@ -138,10 +138,19 @@ main {
     opacity: 1;
 }
 
-.your-order{
+.your-order {
     text-align: center;
     font-size: 28px;
     line-height: 16.8px;
     letter-spacing: 0%;
     margin-bottom: 64px;
+}
+
+.ordered {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 28px;
+    line-height: 16.8px;
+    letter-spacing: 0%;
+
 }
