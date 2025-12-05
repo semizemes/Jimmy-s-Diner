@@ -14,23 +14,23 @@
       <p class="header-text">The best burgers and pizzas in town.</p>
     </header>
     <main id="menu"></main>
-    <section>
-      <h2>Your order</h2>
-      <ul class="ordered">
-        <li>
-          <span>Pizza</span>
-          <button>remove</button>
-          <span>$14</span>
+    <section class="order-section">
+      <h2 class="your-order">Your order</h2>
+      <ul class="ordered" id="ordered">
+        <li class="order-list">
+          <span class="chosen-order-name">Pizza</span>
+          <button class="remove-btn">remove</button>
+          <span class="chosen-order-price">$14</span>
         </li>
       </ul>
-      <p>
-        <span>Total Price:</span>
-        <p>$26</p>
+      <p class="total">
+        <span class="total-price-txt">Total Price:</span>
+        <p class="total-price">$26</p>
       </p>
-      <button>Complete order</button>
+      <button class="order-btn">Complete order</button>
     </section>
 
-    <section>
+    <section class="payment">
       <form action="">
         <input type="text" placeholder="Enter your name">
         <input type="number" placeholder="Enter card number">
