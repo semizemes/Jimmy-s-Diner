@@ -215,3 +215,7 @@ main {
     color: #fff;
     border: none;
 }
+
+.pizza, .hamburger, .beer{
+    /* display: none; */
+}
