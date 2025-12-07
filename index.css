@@ -217,5 +217,5 @@ main {
 }
 
 .pizza, .hamburger, .beer{
-    /* display: none; */
+    display: none;
 }
