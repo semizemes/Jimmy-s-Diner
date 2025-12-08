@@ -2,22 +2,19 @@ import menuArray from "./data.js";
 
 const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
+const ordered = document.getElementById("ordered");
 const totalPrice = document.getElementById("total-price");
-const pizza = document.getElementById("pizza");
-const beer = document.getElementById("beer");
-const hamburger = document.getElementById("hamburger");
-const pizzaCountSpan = document.getElementById("pizza-count-span");
-const pizzaPriceSpan = document.getElementById("pizza-price-span");
-const beerCountSpan = document.getElementById("beer-count-span");
-const beerPriceSpan = document.getElementById("beer-price-span");
-const hamburgerCountSpan = document.getElementById("hamburger-count-span");
-const hamburgerPriceSpan = document.getElementById("hamburger-price-span");
 
-let orderedArr = [];
-let recepeient;
+// There are a number of ways to accomplish this but for this simple "toy" application
+// just copy the menu and then keep track of a quantity for item.  This way you have
+// all the data and can dynamically render the order.  In a real application you
+// wouldn't do it this way, instead you'd have something like a link by id from
+// the order to the menu item but that's too complicated for this simple app.
+let orderedArr = [...menuArray];
+let recipient;
 
-function getHtml() {
-  return menuArray
+function renderMenu() {
+  menu.innerHTML = menuArray
     .map(
       (item) => `
               <div class="item" id="item-${item.id}">
@@ -31,88 +28,81 @@ function getHtml() {
             </div>
         `
     )
-    .map();
+    .join("");
 }
 
-menu.innerHTML = getHtml();
-
 document.addEventListener("click", (e) => {
-  if (e.target.dataset.add) {
-    getOrderArr(e.target.dataset.add);
-    document.getElementById("footer").style.display = "none";
-  }
-  if (e.target.dataset.add && orderedArr.length > 0) {
-    orderSection.style.display = "block";
-    yourOrderHtml();
-    displayOrder(yourOrderHtml());
-  }
-  if (e.target.dataset.remove) {
-    removeItem(e.target.dataset.remove);
-    yourOrderHtml();
-    displayOrder(yourOrderHtml());
-  }
-  if (orderedArr.length == 0) {
-    orderSection.style.display = "none";
-  }
-
   if (e.target.id == "complete-order") {
     document.getElementById("payment").style.display = "block";
   }
+
   if (e.target.id == "pay") {
     orderedArr = [];
     document.getElementById("payment").style.display = "none";
     orderSection.style.display = "none";
-    recepeient = document.getElementById("recepient").value;
+    recipient = document.getElementById("recepient").value;
     document.getElementById("footer").style.display = "block";
     document.getElementById("footer").innerHTML = `
     <div class="item thankyou">
-      <p>Thanks, ${recepeient}! Your order is on its way!</p>
+      <p>Thanks, ${recipient}! Your order is on its way!</p>
     </div>
     `;
   }
+
+  if (e.target.dataset.add != null) {
+    const itemId = +e.target.dataset.add;
+    const item = orderedArr.find((item) => item.id == itemId);
+    item.quantity = item.quantity ? item.quantity + 1 : 1;
+    renderOrder();
+  }
+
+  if (e.target.dataset.remove != null) {
+    const itemId = +e.target.dataset.remove;
+    const item = orderedArr.find((item) => item.id == itemId);
+    item.quantity--;
+    renderOrder();
+  }
 });
 
-function getOrderArr(itemID) {
-  orderedArr.push(itemID);
-}
+function renderOrder() {
+  // Some of the sections in the order are conditional based on
+  // whether something's been ordered (i.e. don't show the order
+  // at all if there's nothing IN the order.)
+  // We also need the price here so it's convenient to calculate
+  // the total price and then conditionally render based on
+  // whether the price is 0 or not...
 
-function yourOrderHtml() {
-  const pizzaCount = orderedArr.filter((x) => x == 0).length;
-  const hamburgerCount = orderedArr.filter((x) => x == 1).length;
-  const beerCount = orderedArr.filter((x) => x == 2).length;
+  // calculate the total price
+  const price = orderedArr.reduce(
+    (acc, cur) => acc + (cur.quantity || 0) * cur.price,
+    0
+  );
 
-  return [pizzaCount, hamburgerCount, beerCount];
-}
+  if (price > 0) {
+    // the price is > 0 so there are items in the order... render it.
+    ordered.innerHTML = orderedArr
+      .filter((item) => +item.quantity > 0)
+      .map(
+        (item) => `
+        <li class="order-list ${item.name}" id="item-${item.id}">
+          <span class="chosen-order-name">${item.name}</span>
+          <span id="count-span">x ${item.quantity || 0}</span>
+          <button class="remove-btn" data-remove="${item.id}">remove</button>
+          <span class="chosen-order-price" class="price-span">$${
+            item.price * (item.quantity || 0)
+          }</span>
+        </li>
+    `
+      )
+      .join("");
 
-function displayOrder(countArr) {
-  if (countArr[0] > 0) {
-    pizza.style.display = "list-item";
-    pizzaCountSpan.innerHTML = `x ${countArr[0]}`;
-    pizzaPriceSpan.innerHTML = `$${countArr[0] * 14}`;
-  } else if (countArr[0] == 0) {
-    pizza.style.display = "none";
+    totalPrice.innerHTML = `$${price.toFixed(2)}`;
+    orderSection.style.display = "block";
+  } else {
+    // the price is 0 so the order is empty... don't render it
+    orderSection.style.display = "none";
   }
-  if (countArr[1] > 0) {
-    hamburger.style.display = "list-item";
-    hamburgerCountSpan.innerHTML = `x ${countArr[1]}`;
-    hamburgerPriceSpan.innerHTML = `$${countArr[1] * 12}`;
-  } else if (countArr[1] == 0) {
-    hamburger.style.display = "none";
-  }
-  if (countArr[2] > 0) {
-    beer.style.display = "list-item";
-    beerCountSpan.innerHTML = `x ${countArr[2]}`;
-    beerPriceSpan.innerHTML = `$${countArr[2] * 12}`;
-  } else if (countArr[2] == 0) {
-    beer.style.display = "none";
-  }
-  totalPrice.innerHTML = `$${
-    countArr[0] * 14 + countArr[1] * 12 + countArr[2] * 12
-  }`;
 }
 
-function removeItem(itemId) {
-  let index = orderedArr.findIndex((orderItem) => orderItem == itemId);
-  console.log(index);
-  orderedArr.splice(index, 1);
-}
+renderMenu();
+renderOrder();
