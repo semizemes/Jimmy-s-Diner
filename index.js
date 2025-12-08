@@ -2,14 +2,16 @@ import menuArray from "./data.js";
 
 const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
-const ordered = document.getElementById("ordered");
-const total = document.getElementById("total");
+const totalPrice = document.getElementById("total-price");
 const pizza = document.getElementById("pizza");
 const beer = document.getElementById("beer");
 const hamburger = document.getElementById("hamburger");
 const pizzaCountSpan = document.getElementById("pizza-count-span");
+const pizzaPriceSpan = document.getElementById("pizza-price-span");
 const beerCountSpan = document.getElementById("beer-count-span");
+const beerPriceSpan = document.getElementById("beer-price-span");
 const hamburgerCountSpan = document.getElementById("hamburger-count-span");
+const hamburgerPriceSpan = document.getElementById("hamburger-price-span");
 
 
 const orderedArr = [];
@@ -41,34 +43,56 @@ document.addEventListener("click", (e) => {
     yourOrderHtml();
     displayOrder(yourOrderHtml());
   }
+  if (e.target.dataset.remove) {
+    removeItem(e.target.dataset.remove);
+    yourOrderHtml();
+    displayOrder(yourOrderHtml());
+  }
+  if (orderedArr.length == 0) {
+    orderSection.style.display = "none";
+  }
+
 });
 
 function getOrderArr(itemID) {
   orderedArr.push(itemID);
-  // console.log(orderedArr);
 }
 
 function yourOrderHtml() {
   const pizzaCount = orderedArr.filter((x) => x == 0).length;
   const hamburgerCount = orderedArr.filter((x) => x == 1).length;
   const beerCount = orderedArr.filter((x) => x == 2).length;
-  
+
   return [pizzaCount, hamburgerCount, beerCount];
 }
 
 function displayOrder(countArr) {
-  console.log(countArr);
-  
   if (countArr[0] > 0) {
-    console.log(countArr[0]);
     pizza.style.display = "list-item";
+    pizzaCountSpan.innerHTML = `x ${countArr[0]}`;
+    pizzaPriceSpan.innerHTML = `$${countArr[0] * 14}`;
+  } else if (countArr[0] == 0) {
+    pizza.style.display = "none";
   }
   if (countArr[1] > 0) {
-    console.log(countArr[1]);
     hamburger.style.display = "list-item";
+    hamburgerCountSpan.innerHTML = `x ${countArr[1]}`;
+    hamburgerPriceSpan.innerHTML = `$${countArr[1] * 12}`;
+  } else if (countArr[1] == 0) {
+    hamburger.style.display = "none";
   }
   if (countArr[2] > 0) {
-    console.log(countArr[2]);
     beer.style.display = "list-item";
+    beerCountSpan.innerHTML = `x ${countArr[2]}`;
+    beerPriceSpan.innerHTML = `$${countArr[2] * 12}`;
+  } else if (countArr[2] == 0) {
+    beer.style.display = "none";
   }
+  totalPrice.innerHTML = `$${((countArr[0] * 14) + (countArr[1] * 12) + (countArr[2] * 12))}`
+}
+
+function removeItem(itemId) {
+  let index = orderedArr.findIndex((orderItem) => orderItem == itemId);
+  console.log(index)
+    orderedArr.splice(index, 1)
 }
