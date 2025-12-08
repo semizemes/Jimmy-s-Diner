@@ -15,11 +15,12 @@ const hamburgerPriceSpan = document.getElementById("hamburger-price-span");
 
 
 const orderedArr = [];
+let recepeient;
 
 function getHtml() {
   return menuArray.map(
     (item) => `
-            <div class="item" id="item-${item.id}">
+              <div class="item" id="item-${item.id}">
                 <div class="item-img">${item.emoji}</div>
                 <h2 class="item-name">${item.name}</h2>
                 <p class="ingredients">${item.ingredients.join(", ")}</p>
@@ -51,7 +52,20 @@ document.addEventListener("click", (e) => {
   if (orderedArr.length == 0) {
     orderSection.style.display = "none";
   }
-
+  
+  if(e.target.id == "complete-order"){
+    document.getElementById("payment").style.display = 'block'
+  }
+  if(e.target.id == "pay"){
+    document.getElementById("payment").style.display = 'none'
+    orderSection.style.display = "none";
+    recepeient = document.getElementById("recepient").value
+    orderSection.innerHTML = `
+    <div class="item thankyou">
+      <p>Thanks, ${recepeient}! Your order is on its way!</p>
+    </div>
+    `
+  }
 });
 
 function getOrderArr(itemID) {

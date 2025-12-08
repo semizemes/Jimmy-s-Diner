@@ -123,23 +123,6 @@ main {
     font-weight: 200;
 }
 
-.payment {
-    display: none;
-    position: fixed;
-    margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 524px;
-    height: 300px;
-    opacity: 1;
-    border-radius: 3.89px;
-    border-width: 1.3px;
-    box-shadow: 5.19px 5.19px 255.44px 0px #00000080;
-    background-color: #fff;
-}
-
 .order-section {
     display: none;
     position: relative;
@@ -216,6 +199,81 @@ main {
     border: none;
 }
 
-.pizza, .hamburger, .beer{
+.pizza,
+.hamburger,
+.beer {
     display: none;
+}
+
+.payment {
+    display: none;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 524px;
+    height: 400px;
+    opacity: 1;
+    border-radius: 3.89px;
+    border-width: 1.3px;
+    box-shadow: 5.19px 5.19px 255.44px 0px #00000080;
+    background-color: #fff;
+}
+
+.payment>p {
+    font-family: Verdana;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 24px;
+    leading-trim: NONE;
+    line-height: 31.12px;
+    letter-spacing: 0%;
+    opacity: 1;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: 30px;
+}
+
+form>input, form>button {
+    display: block;
+    position: relative;
+    width: 475px;
+    height: 40px;
+    margin: 10px auto;
+    left: 0;
+    right: 0;
+    padding-left: 20px;
+    border-radius: 3.89px;
+    border-width: 1.3px;
+    angle: 0 deg;
+    opacity: 1;
+    border: 1.3px solid #757575;
+    margin-bottom: 20px;
+}
+
+form>button {
+    margin-top: 40px;
+    background-color: #16DB99;
+    border: none;
+    color: #fff;
+}
+
+.thankyou{
+
+   background-color: #ECFDF5; 
+   height: 70px;
+   font-family: Smythe;
+font-weight: 400;
+font-style: Regular;
+font-size: 32px;
+letter-spacing: 0%;
+text-align: center;
+color: #065F46;
+border: none;
+}
+
+.thankyou p{
+    padding-top: 14px;
 }

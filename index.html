@@ -46,15 +46,17 @@
       <button class="order-btn" id="complete-order">Complete order</button>
     </section>
 
-    <section class="payment">
+    <section class="payment" id="payment">
       <p>Enter card details</p>
-      <form action="">
-        <input type="text" placeholder="Enter your name" />
+      <form id="payment-form">
+        <input type="text" id="recepient" placeholder="Enter your name" />
         <input type="number" placeholder="Enter card number" />
         <input type="number" placeholder="Enter CVV" />
-        <button type="button">Pay</button>
+        <button type="button" id="pay">Pay</button>
       </form>
     </section>
+
+
 
     <script src="index.js" type="module"></script>
   </body>
