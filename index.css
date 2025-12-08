@@ -10,46 +10,55 @@ body {
 header {
     background-image: url(./images/bg-img.png);
     background-size: cover;
-    width: 600px;
     height: 167px;
-    opacity: 1;
     margin-bottom: 10px;
 }
 
-h1 {
+h1,
+.total-price,
+.header-text,
+form>input,
+form>button,
+main,
+.item,
+.order-section {
     position: relative;
+}
+
+h1,
+.header-text,
+.order-btn,
+form>button {
+    color: #fff
+}
+
+h1, .item-img, .your-order, .payment>p, .thankyou{
+    text-align: center;
+}
+
+h1, .header-text, .item-name, .item-price{
+  margin: 0;  
+}
+
+h1 {
     width: 170px;
     height: 24px;
-    opacity: 1;
     top: 46px;
     left: 46.07px;
-    color: #ffffff;
     font-size: 39px;
-    text-align: center;
-    margin: 0;
 }
 
 .header-text {
-    margin: 0;
-    position: relative;
     width: 275.4591064453125px;
     height: 8px;
-    opacity: 1;
     top: 80px;
     left: 46.07px;
     font-size: 22.42px;
-    color: #ffffff;
-}
-
-main {
-    position: relative;
 }
 
 .item {
-    position: relative;
     width: 508px;
     height: 140px;
-    opacity: 1;
     top: 0px;
     left: 46px;
     border-bottom: 1px solid #d2d2d2;
@@ -64,29 +73,24 @@ main {
     font-size: 78.72px;
     line-height: 98.4px;
     letter-spacing: -2%;
-    text-align: center;
     vertical-align: middle;
 }
 
 .item-name {
-    margin: 0;
     position: absolute;
     width: 43px;
     height: 17px;
-    opacity: 1;
     top: 30px;
     left: 120px;
     font-size: 28px;
     line-height: 16.8px;
     letter-spacing: 0%;
-    font-weight: 300;
 }
 
 .ingredients {
     position: absolute;
     width: 358px;
     height: 24px;
-    opacity: 1;
     top: 40px;
     left: 120px;
     font-size: 16px;
@@ -95,25 +99,26 @@ main {
     color: #8b8b8b;
 }
 
+.item-name,
 .item-price {
-    margin: 0;
+    font-weight: 300;
+}
+
+.item-price {
     position: absolute;
     width: 19px;
     height: 24px;
-    opacity: 1;
     top: 90px;
     left: 120px;
     font-size: 20px;
     line-height: 24px;
     letter-spacing: 0%;
-    font-weight: 300;
 }
 
 .add {
     position: absolute;
     width: 50px;
     height: 50px;
-    opacity: 1;
     top: 50px;
     left: 450px;
     border-width: 1.5px;
@@ -125,16 +130,13 @@ main {
 
 .order-section {
     display: none;
-    position: relative;
     width: 508px;
     height: 319px;
     left: 46px;
     border-radius: 3px;
-    opacity: 1;
 }
 
 .your-order {
-    text-align: center;
     font-size: 28px;
     line-height: 16.8px;
     letter-spacing: 0%;
@@ -170,7 +172,6 @@ main {
 
 .total-price-txt {
     height: 24px;
-    opacity: 1;
     font-size: 28px;
     line-height: 24px;
     letter-spacing: 0%;
@@ -178,7 +179,6 @@ main {
 
 .total-price {
     font-size: 28px;
-    position: relative;
     left: 364px;
 }
 
@@ -189,13 +189,11 @@ main {
 .order-btn {
     width: 508;
     height: 60;
-    opacity: 1;
     top: 1048px;
     left: 46px;
     border-radius: 3px;
     box-shadow: 0px 1px 2px 0px #0000000D;
     background: #16DB99;
-    color: #fff;
     border: none;
 }
 
@@ -215,7 +213,6 @@ main {
     right: 0;
     width: 524px;
     height: 400px;
-    opacity: 1;
     border-radius: 3.89px;
     border-width: 1.3px;
     box-shadow: 5.19px 5.19px 255.44px 0px #00000080;
@@ -227,18 +224,15 @@ main {
     font-weight: 700;
     font-style: Bold;
     font-size: 24px;
-    leading-trim: NONE;
     line-height: 31.12px;
     letter-spacing: 0%;
-    opacity: 1;
-    text-align: center;
     margin-bottom: 35px;
     margin-top: 30px;
 }
 
-form>input, form>button {
+form>input,
+form>button {
     display: block;
-    position: relative;
     width: 475px;
     height: 40px;
     margin: 10px auto;
@@ -248,7 +242,6 @@ form>input, form>button {
     border-radius: 3.89px;
     border-width: 1.3px;
     angle: 0 deg;
-    opacity: 1;
     border: 1.3px solid #757575;
     margin-bottom: 20px;
 }
@@ -257,23 +250,17 @@ form>button {
     margin-top: 40px;
     background-color: #16DB99;
     border: none;
-    color: #fff;
 }
 
-.thankyou{
-
-   background-color: #ECFDF5; 
-   height: 70px;
-   font-family: Smythe;
-font-weight: 400;
-font-style: Regular;
-font-size: 32px;
-letter-spacing: 0%;
-text-align: center;
-color: #065F46;
-border: none;
+.thankyou {
+    background-color: #ECFDF5;
+    height: 70px;
+    font-size: 32px;
+    letter-spacing: 0%;
+    color: #065F46;
+    border: none;
 }
 
-.thankyou p{
+.thankyou p {
     padding-top: 14px;
 }

@@ -60,7 +60,7 @@ document.addEventListener("click", (e) => {
     document.getElementById("payment").style.display = 'none'
     orderSection.style.display = "none";
     recepeient = document.getElementById("recepient").value
-    orderSection.innerHTML = `
+    document.getElementById("footer").innerHTML = `
     <div class="item thankyou">
       <p>Thanks, ${recepeient}! Your order is on its way!</p>
     </div>
