@@ -13,32 +13,33 @@ const beerPriceSpan = document.getElementById("beer-price-span");
 const hamburgerCountSpan = document.getElementById("hamburger-count-span");
 const hamburgerPriceSpan = document.getElementById("hamburger-price-span");
 
-
 let orderedArr = [];
 let recepeient;
 
 function getHtml() {
-  return menuArray.map(
-    (item) => `
+  return menuArray
+    .map(
+      (item) => `
               <div class="item" id="item-${item.id}">
                 <div class="item-img">${item.emoji}</div>
                 <h2 class="item-name">${item.name}</h2>
                 <p class="ingredients">${item.ingredients.join(", ")}</p>
                 <h3 class="item-price">${item.price}$</h3>
                 <button class="add" data-add="${item.id}" id="add-${
-      item.id
-    }">+</button>
+        item.id
+      }">+</button>
             </div>
         `
-  );
+    )
+    .map();
 }
 
-menu.innerHTML = getHtml().join(" ");
+menu.innerHTML = getHtml();
 
 document.addEventListener("click", (e) => {
   if (e.target.dataset.add) {
     getOrderArr(e.target.dataset.add);
-    document.getElementById("footer").style.display = 'none'
+    document.getElementById("footer").style.display = "none";
   }
   if (e.target.dataset.add && orderedArr.length > 0) {
     orderSection.style.display = "block";
@@ -53,21 +54,21 @@ document.addEventListener("click", (e) => {
   if (orderedArr.length == 0) {
     orderSection.style.display = "none";
   }
-  
-  if(e.target.id == "complete-order"){
-    document.getElementById("payment").style.display = 'block'
+
+  if (e.target.id == "complete-order") {
+    document.getElementById("payment").style.display = "block";
   }
-  if(e.target.id == "pay"){
+  if (e.target.id == "pay") {
     orderedArr = [];
-    document.getElementById("payment").style.display = 'none'
+    document.getElementById("payment").style.display = "none";
     orderSection.style.display = "none";
-    recepeient = document.getElementById("recepient").value
-    document.getElementById("footer").style.display = 'block'
+    recepeient = document.getElementById("recepient").value;
+    document.getElementById("footer").style.display = "block";
     document.getElementById("footer").innerHTML = `
     <div class="item thankyou">
       <p>Thanks, ${recepeient}! Your order is on its way!</p>
     </div>
-    `
+    `;
   }
 });
 
@@ -105,11 +106,13 @@ function displayOrder(countArr) {
   } else if (countArr[2] == 0) {
     beer.style.display = "none";
   }
-  totalPrice.innerHTML = `$${((countArr[0] * 14) + (countArr[1] * 12) + (countArr[2] * 12))}`
+  totalPrice.innerHTML = `$${
+    countArr[0] * 14 + countArr[1] * 12 + countArr[2] * 12
+  }`;
 }
 
 function removeItem(itemId) {
   let index = orderedArr.findIndex((orderItem) => orderItem == itemId);
-  console.log(index)
-    orderedArr.splice(index, 1)
+  console.log(index);
+  orderedArr.splice(index, 1);
 }
