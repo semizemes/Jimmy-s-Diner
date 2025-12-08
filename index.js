@@ -14,7 +14,7 @@ const hamburgerCountSpan = document.getElementById("hamburger-count-span");
 const hamburgerPriceSpan = document.getElementById("hamburger-price-span");
 
 
-const orderedArr = [];
+let orderedArr = [];
 let recepeient;
 
 function getHtml() {
@@ -36,12 +36,14 @@ function getHtml() {
 menu.innerHTML = getHtml().join(" ");
 
 document.addEventListener("click", (e) => {
-  if (e.target.dataset.add && orderedArr.length > 0) {
+  if (e.target.dataset.add) {
     getOrderArr(e.target.dataset.add);
+    document.getElementById("footer").style.display = 'none'
+  }
+  if (e.target.dataset.add && orderedArr.length > 0) {
     orderSection.style.display = "block";
     yourOrderHtml();
     displayOrder(yourOrderHtml());
-    document.getElementById("footer").style.display = 'none'
   }
   if (e.target.dataset.remove) {
     removeItem(e.target.dataset.remove);
@@ -56,9 +58,11 @@ document.addEventListener("click", (e) => {
     document.getElementById("payment").style.display = 'block'
   }
   if(e.target.id == "pay"){
+    orderedArr = [];
     document.getElementById("payment").style.display = 'none'
     orderSection.style.display = "none";
     recepeient = document.getElementById("recepient").value
+    document.getElementById("footer").style.display = 'block'
     document.getElementById("footer").innerHTML = `
     <div class="item thankyou">
       <p>Thanks, ${recepeient}! Your order is on its way!</p>
