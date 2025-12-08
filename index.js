@@ -36,13 +36,12 @@ function getHtml() {
 menu.innerHTML = getHtml().join(" ");
 
 document.addEventListener("click", (e) => {
-  if (e.target.dataset.add) {
-    getOrderArr(e.target.dataset.add);
-  }
   if (e.target.dataset.add && orderedArr.length > 0) {
+    getOrderArr(e.target.dataset.add);
     orderSection.style.display = "block";
     yourOrderHtml();
     displayOrder(yourOrderHtml());
+    document.getElementById("footer").style.display = 'none'
   }
   if (e.target.dataset.remove) {
     removeItem(e.target.dataset.remove);
