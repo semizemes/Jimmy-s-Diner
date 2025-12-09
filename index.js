@@ -4,22 +4,23 @@ const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
 const totalPriceLine = document.getElementById("total-price");
 
-const orderedCounts = [0, 0, 0];
+const cartElements = menuArray.map((menuItem) => {
+  return {
+    item: menuItem,
+    rowElements: menuRow(menuItem.name.toLowerCase()),
+    currentCount: 0,
+  };
+});
 
-function menuOffering(name, price) {
+function menuRow(name) {
   return {
     orderLine: document.getElementById(`${name}OrderLine`),
     countSpan: document.getElementById(`${name}-count-span`),
     priceSpan: document.getElementById(`${name}-price-span`),
-    price: price,
   };
 }
 
-const offerings = [
-  menuOffering('pizza', 14),
-  menuOffering('hamburger', 12),
-  menuOffering('beer', 12),
-];
+const menuRows = menuArray.map((o) => menuRow(o.name.toLowerCase()));
 
 let recipient;
 
@@ -43,20 +44,20 @@ menu.innerHTML = getHtml().join(" ");
 
 document.addEventListener("click", (e) => {
   if (e.target.dataset.add) {
-    orderedCounts[e.target.dataset.add]++;
+    cartElements[e.target.dataset.add].currentCount++;
     document.getElementById("footer").style.display = 'none'
-    displayOrder(orderedCounts);
+    displayOrder(cartElements);
   }
   if (e.target.dataset.remove) {
-    orderedCounts[e.target.dataset.remove]--;
-    displayOrder(orderedCounts);
+    cartElements[e.target.dataset.remove].currentCount--;
+    displayOrder(cartElements);
   }
   
   if(e.target.id == "complete-order"){
     document.getElementById("payment").style.display = 'block'
   }
   if(e.target.id == "pay"){
-    orderedCounts.fill(0);
+    zeroOutOrder();
     document.getElementById("payment").style.display = 'none'
     orderSection.style.display = "none";
     recipient = document.getElementById("recepient").value
@@ -69,31 +70,32 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function yourOrderHtml() {
-  for (const menuItemCode of orderedArr) {
-    orderedCounts[menuItemCode]++;
+function zeroOutOrder() {
+  for (const item of cartElements) {
+    item.currentCount = 0;
   }
-  return orderedCounts;
 }
 
-function displayOrderLineIfNonZero(offering, numOrdered) {
+function displayOrderLineIfNonZero(cartElement) {
+  const rowElements = cartElement.rowElements;
+  const numOrdered = cartElement.currentCount;
+  const price = cartElement.item.price
+
   if (numOrdered > 0) {
-    offering.orderLine.style.display = "list-item";
-    offering.countSpan.innerHTML = `x ${numOrdered}`;
-    offering.priceSpan.innerHTML = `$${numOrdered * offering.price}`;
+    rowElements.orderLine.style.display = "list-item";
+    rowElements.countSpan.innerHTML = `x ${numOrdered}`;
+    rowElements.priceSpan.innerHTML = `$${numOrdered * price}`;
   } else if (numOrdered == 0) {
-    offering.orderLine.style.display = "none";
+    rowElements.orderLine.style.display = "none";
   }
 }
 
-function displayOrder(countArr) {
+function displayOrder(cartElements) {
   orderSection.style.display = "block";
   let totalPrice = 0;
-  for (let i = 0; i < offerings.length; i++) {
-    const offering = offerings[i];
-    const count = countArr[i];
-    displayOrderLineIfNonZero(offering, count);
-    totalPrice += count * offering.price;
+  for (const cartElement of cartElements) {
+    displayOrderLineIfNonZero(cartElement)
+    totalPrice += cartElement.currentCount * cartElement.item.price;
   }
   totalPriceLine.innerHTML = `$${totalPrice}`;
 }
