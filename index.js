@@ -21,7 +21,7 @@ const offerings = [
   menuOffering('beer', 12),
 ];
 
-let recepeient;
+let recipient;
 
 function getHtml() {
   return menuArray.map(
@@ -59,11 +59,11 @@ document.addEventListener("click", (e) => {
     orderedCounts.fill(0);
     document.getElementById("payment").style.display = 'none'
     orderSection.style.display = "none";
-    recepeient = document.getElementById("recepient").value
+    recipient = document.getElementById("recepient").value
     document.getElementById("footer").style.display = 'block'
     document.getElementById("footer").innerHTML = `
     <div class="item thankyou">
-      <p>Thanks, ${recepeient}! Your order is on its way!</p>
+      <p>Thanks, ${recipient}! Your order is on its way!</p>
     </div>
     `
   }
