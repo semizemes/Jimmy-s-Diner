@@ -4,16 +4,26 @@ const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
 const totalPrice = document.getElementById("total-price");
 
-const pizzaOrderLine = document.getElementById("pizzaOrderLine");
-const beerOrderLine = document.getElementById("beerOrderLine");
-const hamburgerOrderLine = document.getElementById("hamburgerOrderLine");
+const pizzaOffering = {
+  orderLine: document.getElementById("pizzaOrderLine"),
+  countSpan: document.getElementById("pizza-count-span"),
+  priceSpan: document.getElementById("pizza-price-span"),
+  price: 14,
+};
 
-const pizzaCountSpan = document.getElementById("pizza-count-span");
-const pizzaPriceSpan = document.getElementById("pizza-price-span");
-const beerCountSpan = document.getElementById("beer-count-span");
-const beerPriceSpan = document.getElementById("beer-price-span");
-const hamburgerCountSpan = document.getElementById("hamburger-count-span");
-const hamburgerPriceSpan = document.getElementById("hamburger-price-span");
+const hamburgerOffering = {
+  orderLine: document.getElementById("hamburgerOrderLine"),
+  countSpan: document.getElementById("hamburger-count-span"),
+  priceSpan: document.getElementById("hamburger-price-span"),
+  price: 12,
+};
+
+const beerOffering = {
+  orderLine: document.getElementById("beerOrderLine"),
+  countSpan: document.getElementById("beer-count-span"),
+  priceSpan: document.getElementById("beer-price-span"),
+  price: 12,
+};
 
 
 let orderedArr = [];
@@ -85,21 +95,21 @@ function yourOrderHtml() {
   return [pizzaCount, hamburgerCount, beerCount];
 }
 
-function displayOrderLineIfNonZero(numOrdered, price, menuLine, countSpan, priceSpan) {
+function displayOrderLineIfNonZero(offering, numOrdered) {
   if (numOrdered > 0) {
-    menuLine.style.display = "list-item";
-    countSpan.innerHTML = `x ${numOrdered}`;
-    priceSpan.innerHTML = `$${numOrdered * price}`;
+    offering.orderLine.style.display = "list-item";
+    offering.countSpan.innerHTML = `x ${numOrdered}`;
+    offering.priceSpan.innerHTML = `$${numOrdered * offering.price}`;
   } else if (numOrdered == 0) {
-    menuLine.style.display = "none";
+    offering.orderLine.style.display = "none";
   }
 }
 
 function displayOrder(countArr) {
-  displayOrderLineIfNonZero(countArr[0], 14, pizzaOrderLine, pizzaCountSpan, pizzaPriceSpan);
-  displayOrderLineIfNonZero(countArr[1], 12, hamburgerOrderLine, hamburgerCountSpan, hamburgerPriceSpan);
-  displayOrderLineIfNonZero(countArr[2], 12, beerOrderLine, beerCountSpan, beerPriceSpan);
-  totalPrice.innerHTML = `$${((countArr[0] * 14) + (countArr[1] * 12) + (countArr[2] * 12))}`
+  displayOrderLineIfNonZero(pizzaOffering, countArr[0]);
+  displayOrderLineIfNonZero(hamburgerOffering, countArr[1]);
+  displayOrderLineIfNonZero(beerOffering, countArr[2]);
+  totalPrice.innerHTML = `$${((countArr[0] * pizzaOffering.price) + (countArr[1] * hamburgerOffering.price) + (countArr[2] * beerOffering.price))}`
 }
 
 function removeItem(itemId) {
