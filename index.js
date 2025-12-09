@@ -3,9 +3,11 @@ import menuArray from "./data.js";
 const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
 const totalPrice = document.getElementById("total-price");
-const pizza = document.getElementById("pizza");
-const beer = document.getElementById("beer");
-const hamburger = document.getElementById("hamburger");
+
+const pizzaOrderLine = document.getElementById("pizzaOrderLine");
+const beerOrderLine = document.getElementById("beerOrderLine");
+const hamburgerOrderLine = document.getElementById("hamburgerOrderLine");
+
 const pizzaCountSpan = document.getElementById("pizza-count-span");
 const pizzaPriceSpan = document.getElementById("pizza-price-span");
 const beerCountSpan = document.getElementById("beer-count-span");
@@ -94,9 +96,9 @@ function displayOrderLineIfNonZero(numOrdered, price, menuLine, countSpan, price
 }
 
 function displayOrder(countArr) {
-  displayOrderLineIfNonZero(countArr[0], 14, pizza, pizzaCountSpan, pizzaPriceSpan);
-  displayOrderLineIfNonZero(countArr[1], 12, hamburger, hamburgerCountSpan, hamburgerPriceSpan);
-  displayOrderLineIfNonZero(countArr[2], 12, beer, beerCountSpan, beerPriceSpan);
+  displayOrderLineIfNonZero(countArr[0], 14, pizzaOrderLine, pizzaCountSpan, pizzaPriceSpan);
+  displayOrderLineIfNonZero(countArr[1], 12, hamburgerOrderLine, hamburgerCountSpan, hamburgerPriceSpan);
+  displayOrderLineIfNonZero(countArr[2], 12, beerOrderLine, beerCountSpan, beerPriceSpan);
   totalPrice.innerHTML = `$${((countArr[0] * 14) + (countArr[1] * 12) + (countArr[2] * 12))}`
 }
 
