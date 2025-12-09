@@ -4,6 +4,8 @@ const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
 const totalPriceLine = document.getElementById("total-price");
 
+const orderedCounts = [0, 0, 0];
+
 function menuOffering(name, price) {
   return {
     orderLine: document.getElementById(`${name}OrderLine`),
@@ -19,7 +21,6 @@ const offerings = [
   menuOffering('beer', 12),
 ];
 
-let orderedArr = [];
 let recepeient;
 
 function getHtml() {
@@ -42,28 +43,20 @@ menu.innerHTML = getHtml().join(" ");
 
 document.addEventListener("click", (e) => {
   if (e.target.dataset.add) {
-    getOrderArr(e.target.dataset.add);
+    orderedCounts[e.target.dataset.add]++;
     document.getElementById("footer").style.display = 'none'
-  }
-  if (e.target.dataset.add && orderedArr.length > 0) {
-    orderSection.style.display = "block";
-    yourOrderHtml();
-    displayOrder(yourOrderHtml());
+    displayOrder(orderedCounts);
   }
   if (e.target.dataset.remove) {
-    removeItem(e.target.dataset.remove);
-    yourOrderHtml();
-    displayOrder(yourOrderHtml());
-  }
-  if (orderedArr.length == 0) {
-    orderSection.style.display = "none";
+    orderedCounts[e.target.dataset.remove]--;
+    displayOrder(orderedCounts);
   }
   
   if(e.target.id == "complete-order"){
     document.getElementById("payment").style.display = 'block'
   }
   if(e.target.id == "pay"){
-    orderedArr = [];
+    orderedCounts.fill(0);
     document.getElementById("payment").style.display = 'none'
     orderSection.style.display = "none";
     recepeient = document.getElementById("recepient").value
@@ -76,16 +69,11 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function getOrderArr(itemID) {
-  orderedArr.push(itemID);
-}
-
 function yourOrderHtml() {
-  const pizzaCount = orderedArr.filter((x) => x == 0).length;
-  const hamburgerCount = orderedArr.filter((x) => x == 1).length;
-  const beerCount = orderedArr.filter((x) => x == 2).length;
-
-  return [pizzaCount, hamburgerCount, beerCount];
+  for (const menuItemCode of orderedArr) {
+    orderedCounts[menuItemCode]++;
+  }
+  return orderedCounts;
 }
 
 function displayOrderLineIfNonZero(offering, numOrdered) {
@@ -99,6 +87,7 @@ function displayOrderLineIfNonZero(offering, numOrdered) {
 }
 
 function displayOrder(countArr) {
+  orderSection.style.display = "block";
   let totalPrice = 0;
   for (let i = 0; i < offerings.length; i++) {
     const offering = offerings[i];
@@ -110,7 +99,4 @@ function displayOrder(countArr) {
 }
 
 function removeItem(itemId) {
-  let index = orderedArr.findIndex((orderItem) => orderItem == itemId);
-  console.log(index)
-    orderedArr.splice(index, 1)
 }
