@@ -2,29 +2,22 @@ import menuArray from "./data.js";
 
 const menu = document.getElementById("menu");
 const orderSection = document.getElementById("order-section");
-const totalPrice = document.getElementById("total-price");
+const totalPriceLine = document.getElementById("total-price");
 
-const pizzaOffering = {
-  orderLine: document.getElementById("pizzaOrderLine"),
-  countSpan: document.getElementById("pizza-count-span"),
-  priceSpan: document.getElementById("pizza-price-span"),
-  price: 14,
-};
+function menuOffering(name, price) {
+  return {
+    orderLine: document.getElementById(`${name}OrderLine`),
+    countSpan: document.getElementById(`${name}-count-span`),
+    priceSpan: document.getElementById(`${name}-price-span`),
+    price: price,
+  };
+}
 
-const hamburgerOffering = {
-  orderLine: document.getElementById("hamburgerOrderLine"),
-  countSpan: document.getElementById("hamburger-count-span"),
-  priceSpan: document.getElementById("hamburger-price-span"),
-  price: 12,
-};
-
-const beerOffering = {
-  orderLine: document.getElementById("beerOrderLine"),
-  countSpan: document.getElementById("beer-count-span"),
-  priceSpan: document.getElementById("beer-price-span"),
-  price: 12,
-};
-
+const offerings = [
+  menuOffering('pizza', 14),
+  menuOffering('hamburger', 12),
+  menuOffering('beer', 12),
+];
 
 let orderedArr = [];
 let recepeient;
@@ -106,10 +99,14 @@ function displayOrderLineIfNonZero(offering, numOrdered) {
 }
 
 function displayOrder(countArr) {
-  displayOrderLineIfNonZero(pizzaOffering, countArr[0]);
-  displayOrderLineIfNonZero(hamburgerOffering, countArr[1]);
-  displayOrderLineIfNonZero(beerOffering, countArr[2]);
-  totalPrice.innerHTML = `$${((countArr[0] * pizzaOffering.price) + (countArr[1] * hamburgerOffering.price) + (countArr[2] * beerOffering.price))}`
+  let totalPrice = 0;
+  for (let i = 0; i < offerings.length; i++) {
+    const offering = offerings[i];
+    const count = countArr[i];
+    displayOrderLineIfNonZero(offering, count);
+    totalPrice += count * offering.price;
+  }
+  totalPriceLine.innerHTML = `$${totalPrice}`;
 }
 
 function removeItem(itemId) {
