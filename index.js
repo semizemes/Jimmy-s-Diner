@@ -83,28 +83,20 @@ function yourOrderHtml() {
   return [pizzaCount, hamburgerCount, beerCount];
 }
 
+function displayOrderLineIfNonZero(numOrdered, price, menuLine, countSpan, priceSpan) {
+  if (numOrdered > 0) {
+    menuLine.style.display = "list-item";
+    countSpan.innerHTML = `x ${numOrdered}`;
+    priceSpan.innerHTML = `$${numOrdered * price}`;
+  } else if (numOrdered == 0) {
+    menuLine.style.display = "none";
+  }
+}
+
 function displayOrder(countArr) {
-  if (countArr[0] > 0) {
-    pizza.style.display = "list-item";
-    pizzaCountSpan.innerHTML = `x ${countArr[0]}`;
-    pizzaPriceSpan.innerHTML = `$${countArr[0] * 14}`;
-  } else if (countArr[0] == 0) {
-    pizza.style.display = "none";
-  }
-  if (countArr[1] > 0) {
-    hamburger.style.display = "list-item";
-    hamburgerCountSpan.innerHTML = `x ${countArr[1]}`;
-    hamburgerPriceSpan.innerHTML = `$${countArr[1] * 12}`;
-  } else if (countArr[1] == 0) {
-    hamburger.style.display = "none";
-  }
-  if (countArr[2] > 0) {
-    beer.style.display = "list-item";
-    beerCountSpan.innerHTML = `x ${countArr[2]}`;
-    beerPriceSpan.innerHTML = `$${countArr[2] * 12}`;
-  } else if (countArr[2] == 0) {
-    beer.style.display = "none";
-  }
+  displayOrderLineIfNonZero(countArr[0], 14, pizza, pizzaCountSpan, pizzaPriceSpan);
+  displayOrderLineIfNonZero(countArr[1], 12, hamburger, hamburgerCountSpan, hamburgerPriceSpan);
+  displayOrderLineIfNonZero(countArr[2], 12, beer, beerCountSpan, beerPriceSpan);
   totalPrice.innerHTML = `$${((countArr[0] * 14) + (countArr[1] * 12) + (countArr[2] * 12))}`
 }
 
