@@ -20,8 +20,6 @@ function menuRow(name) {
   };
 }
 
-const menuRows = menuArray.map((o) => menuRow(o.name.toLowerCase()));
-
 let recipient;
 
 function getHtml() {
@@ -98,7 +96,4 @@ function displayOrder(cartElements) {
     totalPrice += cartElement.currentCount * cartElement.item.price;
   }
   totalPriceLine.innerHTML = `$${totalPrice}`;
-}
-
-function removeItem(itemId) {
 }
